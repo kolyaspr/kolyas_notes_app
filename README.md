@@ -105,26 +105,22 @@
 
 ## Архитектура проекта
 
+Основной Flutter-проект находится в папке `app/`.
+
 ```text
-lib/
-├── main.dart                       # точка входа, тема приложения, запуск NotesPage
-├── models/
-│   └── note.dart                   # модель заметки: id, title, content, createdAt, isDone
-├── screens/
-│   ├── notes_page.dart             # главный экран, сетка, статистика, CRUD-логика
-│   └── note_detail_page.dart       # просмотр, редактирование, удаление, смена статуса
-├── services/
-│   └── storage_service.dart        # сохранение и загрузка заметок из SharedPreferences
-└── widgets/
-    └── note_card.dart              # переиспользуемая карточка заметки
+app/
+└── lib/
+    ├── main.dart                       # точка входа, тема приложения, запуск NotesPage
+    ├── models/
+    │   └── note.dart                   # модель заметки: id, title, content, createdAt, isDone
+    ├── screens/
+    │   ├── notes_page.dart             # главный экран, сетка, статистика, CRUD-логика
+    │   └── note_detail_page.dart       # просмотр, редактирование, удаление, смена статуса
+    ├── services/
+    │   └── storage_service.dart        # сохранение и загрузка заметок из SharedPreferences
+    └── widgets/
+        └── note_card.dart              # переиспользуемая карточка заметки
 ```
-
-<div align="center">
-
-<img src="docs/screens/project_structure.png" alt="Структура проекта KolyasNotes" width="360">
-
-</div>
-
 ---
 
 ## Как устроено приложение
@@ -213,29 +209,13 @@ return 5;
 
 ---
 
-## Рекомендуемое название репозитория
-
-```text
-kolyas_notes_app
-```
-
-Альтернативы:
-
-```text
-kolyas_notes_flutter
-kolyas_notes_keeper
-kolyas_notes_mobile
-```
-
----
-
 ## Как запустить проект
 
 ### 1. Клонировать репозиторий
 
 ```bash
 git clone https://github.com/kolyaspr/kolyas_notes_app.git
-cd kolyas_notes_app
+cd kolyas_notes_app/app
 ```
 
 Если репозиторий будет создан под другим аккаунтом или названием, замените ссылку на свою.
@@ -276,18 +256,21 @@ flutter run
 
 ## Как собрать APK
 
-Для сборки release APK выполните:
+Так как Flutter-проект находится в папке `app/`, команды сборки нужно выполнять из неё:
 
 ```bash
+cd app
 flutter clean
 flutter pub get
 flutter build apk --release
 ```
 
+Если вы уже находитесь внутри папки `app/`, команду `cd app` выполнять не нужно.
+
 Готовый APK будет находиться по пути:
 
 ```text
-build/app/outputs/flutter-apk/app-release.apk
+app/build/app/outputs/flutter-apk/app-release.apk
 ```
 
 Этот файл можно передать на Android-устройство и установить вручную.
@@ -298,16 +281,11 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ### Способ 1. Через файл APK
 
-1. Соберите APK командой:
-
-   ```bash
-   flutter build apk --release
-   ```
-
+1. Соберите APK командами из раздела выше.
 2. Найдите файл:
 
    ```text
-   build/app/outputs/flutter-apk/app-release.apk
+   app/build/app/outputs/flutter-apk/app-release.apk
    ```
 
 3. Передайте APK на Android-устройство.
@@ -319,16 +297,16 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ### Способ 2. Через ADB
 
-Если устройство подключено по USB или запущен эмулятор:
+Если устройство подключено по USB или запущен эмулятор, выполните команду из корня репозитория:
 
 ```bash
-adb install build/app/outputs/flutter-apk/app-release.apk
+adb install app/build/app/outputs/flutter-apk/app-release.apk
 ```
 
 При повторной установке:
 
 ```bash
-adb install -r build/app/outputs/flutter-apk/app-release.apk
+adb install -r app/build/app/outputs/flutter-apk/app-release.apk
 ```
 
 ---
@@ -336,6 +314,7 @@ adb install -r build/app/outputs/flutter-apk/app-release.apk
 ## Команды для разработки
 
 ```bash
+cd app
 flutter clean
 flutter pub get
 dart run flutter_launcher_icons
